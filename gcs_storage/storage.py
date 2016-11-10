@@ -10,7 +10,7 @@ class GoogleCloudStorage(Storage):
     def __init__(self):
         bucket = settings.GOOGLE_CLOUD_STORAGE_BUCKET
         self.client = storage.Client()
-        self.bucket = self.client.create_bucket(bucket)
+        self.bucket = self.client.bucket(bucket)
         self.base_url = "https://storage.googleapis.com/%s" % bucket
 
     def _open(self, name, mode):
