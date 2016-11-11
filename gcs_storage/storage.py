@@ -3,8 +3,6 @@ from django.core.files.storage import Storage
 from django.conf import settings
 from google.cloud import storage
 
-__version__ = '0.1'
-
 
 class GoogleCloudStorage(Storage):
     def __init__(self):
