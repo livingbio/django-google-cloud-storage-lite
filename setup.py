@@ -3,10 +3,11 @@
 
 """Setup for autoreq."""
 
-import ast
 import io
 import sys
 from setuptools import setup
+from setuptools import find_packages
+
 
 reqs = []
 with open('requirements.txt') as ifile:
@@ -21,7 +22,7 @@ INSTALL_REQUIRES = (
 
 
 def version():
-    return "0.2"
+    return "0.3"
 
 
 with io.open('README.rst') as readme:
@@ -51,5 +52,6 @@ with io.open('README.rst') as readme:
         keywords='automation, requirements, format',
         install_requires=INSTALL_REQUIRES,
         py_modules=['gcs_storage'],
+        packages=find_packages(),
         zip_safe=False,
     )
