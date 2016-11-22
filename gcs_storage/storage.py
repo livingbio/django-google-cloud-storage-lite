@@ -17,7 +17,8 @@ class GoogleCloudStorage(Storage):
 
     def _save(self, name, content):
         blob = self.bucket.blob(name)
-        blob.upload_from_file(content)
+        blob.upload_from_file(content.file, size=content.size)
+        return name
 
     def delete(self, name):
         self.bucket.delete_blob(name)
@@ -26,4 +27,4 @@ class GoogleCloudStorage(Storage):
         return self.base_url + "/" + name
 
     def exists(self, name):
-        return self.bucket.exists()
+        return self.bucket.blob(name).exists()
