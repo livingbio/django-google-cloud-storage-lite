@@ -2,6 +2,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import Storage
 from django.conf import settings
 from google.cloud import storage
+import os, uuid
 
 
 class GoogleCloudStorage(Storage):
@@ -10,6 +11,13 @@ class GoogleCloudStorage(Storage):
         self.client = storage.Client()
         self.bucket = self.client.bucket(bucket)
         self.base_url = "https://storage.googleapis.com/%s" % bucket
+
+    def get_available_name(self, name, max_length=None):
+        name, ext = os.path.splitext(name)
+        if ext:
+            return "%s%s" % (uuid.uuid4(), ext)
+
+        return uuid.uuid4()
 
     def _open(self, name, mode):
         blob = self.bucket.get_blob(name)
