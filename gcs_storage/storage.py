@@ -38,4 +38,4 @@ class GoogleCloudStorage(Storage):
         return self.bucket.blob(name).exists()
 
     def size(self, name):
-        return self.bucket.blob(name).size
+        return self.bucket.get_blob(name).size
