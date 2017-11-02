@@ -14,11 +14,15 @@ class GoogleCloudStorage(Storage):
         self.base_url = "https://storage.googleapis.com/%s" % bucket
 
     def get_available_name(self, name, max_length=None):
-        name, ext = os.path.splitext(name)
-        if ext:
-            return "%s%s" % (slugify(name), ext)
+        folderpath = os.path.dirname(name)
+        filepath = os.path.basename(name)
 
-        return uuid.uuid4()
+        name, ext = os.path.splitext(filepath)
+
+        if ext:
+            return os.path.join(folderpath, "%s%s" % (slugify(name), ext))
+
+        return os.path.join(folderpath, slugify(name))
 
     def _open(self, name, mode):
         blob = self.bucket.get_blob(name)
