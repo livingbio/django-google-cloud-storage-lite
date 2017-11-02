@@ -1,6 +1,7 @@
 from django.core.files.base import ContentFile
 from django.core.files.storage import Storage
 from django.conf import settings
+from django.utils.text import slugify
 from google.cloud import storage
 import os, uuid
 
@@ -15,7 +16,7 @@ class GoogleCloudStorage(Storage):
     def get_available_name(self, name, max_length=None):
         name, ext = os.path.splitext(name)
         if ext:
-            return "%s%s" % (uuid.uuid4(), ext)
+            return "%s%s" % (slugify(name), ext)
 
         return uuid.uuid4()
 
